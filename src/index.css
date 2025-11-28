@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import 'tailwindcss';
+
+@theme {
+  --font-poppins: 'Poppins', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+
+  --color-primary: hsla(0, 0%, 0%, 1);
+  --color-offWhite: hsla(0, 0%, 98%, 1);
+  --color-gray: hsla(0, 0%, 96%, 1);
+  --color-green: hsla(144, 100%, 50%, 1);
+  --color-red: hsla(0, 68%, 56%, 1);
+  --color-skyBlue: hsla(188, 39%, 85%, 1);
+
+  --spacing-project_container: 73.125rem;
+
+  /* --color-modal-backdrop: hsla(153, 14%, 12%, 1);
+  --color-input-border: hsla(228, 11%, 91%, 1);
+
+  --shadow-form-shadow: 0px 20px 50px 0px hsla(108, 13%, 92%, 1);
+  --shadow-dropdown: 0px 4px 9px 0px hsla(0, 0%, 0%, 0.06);
+  --shadow-green: 0px 15px 30px 0px hsla(134, 70%, 51%, 0.3);
+
+  --radius-3: 3px;
+  --radius-5: 5px;
+
+  --animate-fade-in: fade-in 0.5s ease-in-out;
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  } */
+}
+
+kjhgkkjh {
+  color: rgb(224, 245, 232);
+}
