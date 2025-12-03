@@ -69,7 +69,7 @@ export default {
       <FormField label="Password" inputType="password" v-model="localForm.password" />
 
       <div class="mt-10 flex items-center justify-between gap-3">
-        <CustomButton buttonText="Log In" class="w-35.5" />
+        <CustomButton buttonText="Log In" :bgRed="true" class="w-35.5" />
 
         <p class="text-primary/60">
           <span>No account?</span>

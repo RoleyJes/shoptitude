@@ -6,7 +6,9 @@
       'cursor-pointer rounded py-4 text-base font-medium transition-all duration-300',
       transparent
         ? 'text-primary hover:bg-primary border-primary/50 hover:text-offWhite border bg-none'
-        : 'bg-red border-red text-offWhite border hover:bg-red-700',
+        : '',
+      bgRed ? 'bg-red border-red text-offWhite border hover:bg-red-700' : '',
+      bgGreen ? 'bg-green border-green text-offWhite border hover:bg-green-700' : '',
     ]"
   >
     <slot>
@@ -21,6 +23,14 @@ export default {
     buttonText: {
       type: String,
       required: true,
+    },
+    bgRed: {
+      typr: Boolean,
+      default: false,
+    },
+    bgGreen: {
+      typr: Boolean,
+      default: false,
     },
     transparent: {
       type: Boolean,

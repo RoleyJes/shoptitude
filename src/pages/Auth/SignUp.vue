@@ -61,7 +61,7 @@ export default {
       <FormField class="mb-10" label="Email" inputType="email" v-model="localForm.userEmail" />
       <FormField label="Password" inputType="password" v-model="localForm.password" />
 
-      <CustomButton buttonText="Create Account" class="mt-10 w-full" />
+      <CustomButton buttonText="Create Account" :bgRed="true" class="mt-10 w-full" />
 
       <p class="text-primary/60 mt-8.5 text-center">
         <span>Already have account?</span>

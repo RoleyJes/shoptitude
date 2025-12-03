@@ -45,11 +45,15 @@ export default {
   },
 
   computed: {
+    // ...mapGetters('wishlist', ['getWishlist']),
     loggedIn() {
       const user =
         this.$store.getters['user/getloggedInUser'] || JSON.parse(localStorage.getItem('user'))
 
       return user
+    },
+    wishlistCount() {
+      return this.$store.getters['wishlist/getWishlist'].length
     },
   },
 
@@ -92,8 +96,13 @@ export default {
 
         <!-- Authenticated users view only -->
         <div v-if="loggedIn" class="relative flex items-center gap-6">
-          <RouterLink to="/wishlist">
+          <RouterLink to="/wishlist" class="relative">
             <img :src="wishHeartIcon" alt="a heart icon" class="cursor-pointer" />
+            <span
+              v-if="wishlistCount > 0"
+              class="bg-red text-offWhite absolute -top-2 -right-1.5 flex size-4.5 items-center justify-center rounded-full text-sm"
+              >{{ wishlistCount }}</span
+            >
           </RouterLink>
           <RouterLink to="/cart">
             <img :src="cartIcon" alt="a cart icon" class="cursor-pointer" />

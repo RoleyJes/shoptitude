@@ -11,12 +11,17 @@
   --color-gray: hsla(0, 0%, 96%, 1);
   --color-green: hsla(144, 100%, 50%, 1);
   --color-red: hsla(0, 68%, 56%, 1);
+  --color-yellow: hsla(36, 100%, 60%, 1);
   --color-skyBlue: hsla(188, 39%, 85%, 1);
 
   --spacing-project_container: 73.125rem;
 
+  --shadow-category: 0px 1px 13px 0px hsla(0, 0%, 0%, 0.05);
+
   /* --color-modal-backdrop: hsla(153, 14%, 12%, 1);
   --color-input-border: hsla(228, 11%, 91%, 1);
+
+
 
   --shadow-form-shadow: 0px 20px 50px 0px hsla(108, 13%, 92%, 1);
   --shadow-dropdown: 0px 4px 9px 0px hsla(0, 0%, 0%, 0.06);
@@ -34,6 +39,16 @@
       opacity: 1;
     }
   } */
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Chrome, Safari */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
 kjhgkkjh {

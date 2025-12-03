@@ -1,10 +1,54 @@
 <script>
 import SectionHeaders from '../SectionHeaders.vue'
+import SkeletonLoader from '../SkeletonLoader.vue'
+import CustomButton from '../CustomButton.vue'
+import ProductCard from '../ProductCard.vue'
+import { calcDiscount } from '@/utils/calcDiscount'
+import { mapGetters } from 'vuex'
+import FetchError from '../FetchError.vue'
 
 export default {
   name: 'FlashSales',
 
-  components: { SectionHeaders },
+  methods: {
+    calcDiscount,
+    addToWishlist(product) {
+      this.$store.dispatch('wishlist/updateWishlist', product)
+    },
+  },
+
+  created() {
+    this.$store.dispatch('products/fetchProducts')
+  },
+
+  // computed: {
+
+  //   products() {
+  //     return this.$store.getters['products/getProducts']
+  //   },
+  //   loading() {
+  //     return this.$store.getters['products/getLoading']
+  //   },
+  //   fetchError() {
+  //     return this.$store.getters['products/getError']
+  //   },
+  // },
+
+  computed: {
+    ...mapGetters('products', ['getProducts', 'getLoading', 'getError']),
+    slicedProducts() {
+      return this.getProducts.slice(0, 10)
+    },
+  },
+  // computed: {
+  //   ...mapGetters('products', {
+  //     products: 'getProducts',
+  //     loading: 'getLoading',
+  //     fetchError: 'getError',
+  //   }),
+  // },
+
+  components: { SectionHeaders, SkeletonLoader, CustomButton, ProductCard, FetchError },
 }
 </script>
 
@@ -51,26 +95,39 @@ export default {
     </section>
 
     <!-- Products -->
-    <section class="overflow-x-auto ps-34">
-      <article class="w-67.5">
-        <div class="bg-gray relative flex h-62.5 items-center justify-center rounded">
-          <img src="@/assets/test.png" alt="product on sale" />
-          <!-- Discount -->
+    <div v-if="getLoading" class="max-w-project_container mx-auto flex w-full justify-between">
+      <SkeletonLoader />
+      <SkeletonLoader />
+      <SkeletonLoader />
+      <SkeletonLoader />
+    </div>
+
+    <FetchError v-else-if="getError" :errMsg="getError" />
+
+    <!-- Product card -->
+    <section
+      v-else
+      class="max-w-project_container scrollbar-hide mx-auto flex gap-7.5 overflow-x-auto"
+    >
+      <ProductCard
+        v-for="product in slicedProducts"
+        :product="product"
+        :key="product.id"
+        :calculatedDiscount="calcDiscount(product.price)"
+        @addToWishlist="addToWishlist(product)"
+      >
+        <template #banner>
           <p class="bg-red text-offWhite absolute top-3 left-3 rounded px-3 py-1 text-xs">-40%</p>
-          <!-- Wish and Detail -->
-          <div class="absolute top-3 right-3 flex flex-col gap-2">
-            <button class="flex size-8.5 items-center justify-center rounded-full bg-white">
-              <img
-                src="@/assets/wishHeartIcon.png"
-                alt="Heart shaped wishlist icon button overlaid at the top-right of a product image, indicating add or remove from favorites; appears on a discounted product card; neutral inviting tone"
-                class="w-4"
-              />
-            </button>
-          </div>
-        </div>
-      </article>
+        </template>
+      </ProductCard>
     </section>
+
     <!-- Button -->
+    <div
+      class="border-primary/30 max-w-project_container mx-auto flex justify-center border-b py-15"
+    >
+      <CustomButton buttonText="View All Products" :bgRed="true" class="mx-auto w-58.5" />
+    </div>
   </section>
 </template>
 
