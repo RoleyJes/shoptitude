@@ -3,6 +3,7 @@ import StarProductReviewIcon from '@/assets/iconComponents/StarProductReviewIcon
 import IconInRoundWhiteBg from './IconInRoundWhiteBg.vue'
 import heartIcon from '@/assets/wishHeartIcon.png'
 import eyeIcon from '@/assets/eyeIcon.png'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'ProductCard',
@@ -44,6 +45,17 @@ export default {
     },
   },
 
+  methods: {
+    wishlistedItem(id) {
+      const wishlisted = this.getWishlist.some((item) => item.id === id)
+      return wishlisted
+    },
+  },
+
+  computed: {
+    ...mapGetters('wishlist', ['getWishlist']),
+  },
+
   components: { StarProductReviewIcon, IconInRoundWhiteBg },
 }
 </script>
@@ -60,9 +72,10 @@ export default {
       <div class="absolute top-3 right-3 flex flex-col gap-2">
         <IconInRoundWhiteBg
           v-if="showWishlistIcon"
-          @click="$emit('addToWishlist')"
+          @click="this.$emit('addToWishlist')"
           :image="heartIcon"
           alt="Heart shaped wishlist icon button overlaid at the top-right of a product image, indicating add or remove from favorites; appears on a discounted product card; neutral inviting tone"
+          :class="[wishlistedItem(product.id) ? 'bg-green!' : '']"
         />
         <IconInRoundWhiteBg
           v-if="showEyeIcon"
@@ -80,8 +93,9 @@ export default {
 
       <!-- Add to cart button -->
       <button
+        @click="$emit('addToCart')"
         :class="[
-          'bg-primary absolute bottom-0 left-0 flex w-full cursor-pointer items-center justify-center gap-2 rounded-b py-2 text-center font-medium text-white transition-all duration-300',
+          'bg-primary hover:bg-primary/50 absolute bottom-0 left-0 flex w-full cursor-pointer items-center justify-center gap-2 rounded-b py-2 text-center font-medium text-white transition-all duration-300',
           wishlistView ? 'opacity-100' : 'opacity-0 group-hover:opacity-100',
         ]"
       >

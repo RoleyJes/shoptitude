@@ -1,20 +1,11 @@
+import toast from 'vue3-hot-toast'
+
 export const wishlistStore = {
   namespaced: true,
 
   state() {
     return {
-      wishlist: [
-        // {
-        //   category: "men's clothing",
-        //   description:
-        //     'Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday',
-        //   id: 1,
-        //   image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png',
-        //   price: 109.95,
-        //   rating: { rate: 3.9, count: 120 },
-        //   title: 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops',
-        // },
-      ],
+      wishlist: [],
     }
   },
 
@@ -28,14 +19,32 @@ export const wishlistStore = {
     setWishlist(state, product) {
       state.wishlist.push(product)
     },
+    // setWishlist(state, product) {
+    //   const exists = state.wishlist.some((item) => item.id === product.id)
+    //   if (!exists) {
+    //     state.wishlist.push(product)
+    //     toast.success('Item added to wishlist')
+    //   } else {
+
+    //     toast.error('Item removed in wishlist')
+    //   }
+    // },
     deleteProduct(state, productId) {
       state.wishlist = state.wishlist.filter((product) => product.id !== productId)
     },
   },
 
   actions: {
-    updateWishlist({ commit }, payload) {
-      commit('setWishlist', payload)
+    updateWishlist({ commit, state }, product) {
+      const exists = state.wishlist.some((item) => item.id === product.id)
+
+      if (!exists) {
+        commit('setWishlist', product)
+        toast.success('Item added to wishlist')
+      } else {
+        commit('deleteProduct', product.id)
+        toast.success('Item removed in wishlist')
+      }
     },
     deleteProduct({ commit }, productId) {
       commit('deleteProduct', productId)

@@ -3,7 +3,7 @@
     :is="path ? 'RouterLink' : 'button'"
     :to="path"
     :class="[
-      'cursor-pointer rounded py-4 text-base font-medium transition-all duration-300',
+      'inline-block cursor-pointer rounded py-4 text-center text-base font-medium transition-all duration-300',
       transparent
         ? 'text-primary hover:bg-primary border-primary/50 hover:text-offWhite border bg-none'
         : '',

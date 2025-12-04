@@ -15,6 +15,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    IconComponent: {
+      type: String,
+      default: '',
+    },
   },
 }
 </script>
@@ -22,7 +26,9 @@ export default {
   <button
     class="hover:shadow-primary/20 flex size-8.5 cursor-pointer items-center justify-center rounded-full bg-white transition-all duration-300 hover:shadow-lg"
   >
+    <!-- <component :is="IconComponent" class="w-4 text-black"> -->
     <img v-if="defaultImage" :src="image" :alt="alt" class="w-4" />
+    <!-- </component> -->
     <slot></slot>
   </button>
 </template>

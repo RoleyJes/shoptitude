@@ -7,6 +7,7 @@ import LogoutIcon from '@/assets/iconComponents/LogoutIcon.vue'
 import StarIcon from '@/assets/iconComponents/StarIcon.vue'
 import OrderIcon from '@/assets/iconComponents/OrderIcon.vue'
 import CancelIcon from '@/assets/iconComponents/CancelIcon.vue'
+// import { mapGetters } from 'vuex'
 export default {
   name: 'GeneralNavbar',
 
@@ -45,7 +46,7 @@ export default {
   },
 
   computed: {
-    // ...mapGetters('wishlist', ['getWishlist']),
+    // ...mapGetters('cart', ['getCart']),
     loggedIn() {
       const user =
         this.$store.getters['user/getloggedInUser'] || JSON.parse(localStorage.getItem('user'))
@@ -54,6 +55,9 @@ export default {
     },
     wishlistCount() {
       return this.$store.getters['wishlist/getWishlist'].length
+    },
+    cartCount() {
+      return this.$store.getters['cart/getCart'].length
     },
   },
 
@@ -104,8 +108,17 @@ export default {
               >{{ wishlistCount }}</span
             >
           </RouterLink>
-          <RouterLink to="/cart">
-            <img :src="cartIcon" alt="a cart icon" class="cursor-pointer" />
+          <RouterLink to="/cart" class="relative">
+            <img
+              :src="cartIcon"
+              alt="a cart icon"
+              :class="['cursor-pointer transition-all duration-300', cartCount ? 'size-6' : '']"
+            />
+            <span
+              v-if="cartCount > 0"
+              class="bg-red text-offWhite absolute -top-2 -right-1.5 flex size-4.5 items-center justify-center rounded-full text-sm"
+              >{{ cartCount }}</span
+            >
           </RouterLink>
           <component
             :is="'UserIcon'"

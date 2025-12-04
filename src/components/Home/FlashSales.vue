@@ -6,6 +6,7 @@ import ProductCard from '../ProductCard.vue'
 import { calcDiscount } from '@/utils/calcDiscount'
 import { mapGetters } from 'vuex'
 import FetchError from '../FetchError.vue'
+import { Toaster } from 'vue3-hot-toast'
 
 export default {
   name: 'FlashSales',
@@ -14,6 +15,9 @@ export default {
     calcDiscount,
     addToWishlist(product) {
       this.$store.dispatch('wishlist/updateWishlist', product)
+    },
+    addToCart(product) {
+      this.$store.dispatch('cart/addToCart', product)
     },
   },
 
@@ -48,7 +52,7 @@ export default {
   //   }),
   // },
 
-  components: { SectionHeaders, SkeletonLoader, CustomButton, ProductCard, FetchError },
+  components: { SectionHeaders, SkeletonLoader, CustomButton, ProductCard, FetchError, Toaster },
 }
 </script>
 
@@ -115,6 +119,7 @@ export default {
         :key="product.id"
         :calculatedDiscount="calcDiscount(product.price)"
         @addToWishlist="addToWishlist(product)"
+        @addToCart="addToCart(product)"
       >
         <template #banner>
           <p class="bg-red text-offWhite absolute top-3 left-3 rounded px-3 py-1 text-xs">-40%</p>
@@ -129,6 +134,14 @@ export default {
       <CustomButton buttonText="View All Products" :bgRed="true" class="mx-auto w-58.5" />
     </div>
   </section>
+
+  <Toaster
+    :toast-options="{
+      success: {
+        duration: 5000,
+      },
+    }"
+  />
 </template>
 
 <style lang="scss" scoped></style>
