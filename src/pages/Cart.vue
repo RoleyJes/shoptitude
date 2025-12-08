@@ -1,5 +1,6 @@
 <script>
 import Breadcrumbs from '@/components/Breadcrumbs.vue'
+import CartBillSummary from '@/components/Cart/CartBillSummary.vue'
 import CartRow from '@/components/Cart/CartRow.vue'
 import CustomButton from '@/components/CustomButton.vue'
 import { formatCurrency } from '@/utils/formatCurrency'
@@ -41,7 +42,7 @@ export default {
     ...mapGetters('cart', ['getCart', 'getItemSubtotal', 'getCartSubTotal']),
   },
 
-  components: { Breadcrumbs, CartRow, Toaster, CustomButton },
+  components: { Breadcrumbs, CartRow, Toaster, CustomButton, CartBillSummary },
 }
 </script>
 
@@ -67,6 +68,7 @@ export default {
           <CartRow
             v-for="product in getCart"
             :key="product.id"
+            :alt="product.title"
             v-bind="{ ...product }"
             :price="formatCurrency({ amount: product.price })"
             :itemSubTotal="formatCurrency({ amount: getItemSubtotal(product.id) })"
@@ -89,24 +91,19 @@ export default {
             <div class="border-primary w-117.5 rounded border-[1.5px] px-6 py-8">
               <p class="mb-6 text-xl font-medium">Cart Total</p>
 
-              <!-- Cart summary -->
-              <div class="space-y-4 divide-y">
-                <div class="flex items-center justify-between pb-4">
-                  <p>Subtotal:</p>
-                  <p>{{ formatCurrency({ amount: getCartSubTotal }) }}</p>
-                </div>
-                <div class="flex items-center justify-between pb-4">
-                  <p>Shipping:</p>
-                  <p>Free</p>
-                </div>
-                <div class="flex items-center justify-between pb-4">
-                  <p>Total:</p>
-                  <p>{{ formatCurrency({ amount: getCartSubTotal }) }}</p>
-                </div>
-              </div>
+              <!-- Cart bill summary -->
+              <CartBillSummary
+                :subtotalValue="formatCurrency({ amount: getCartSubTotal })"
+                :totalValue="formatCurrency({ amount: getCartSubTotal })"
+              />
 
               <div class="flex justify-center">
-                <CustomButton :bgRed="true" buttonText="Proceed to checkout" class="w-65" />
+                <CustomButton
+                  path="/checkout"
+                  :bgRed="true"
+                  buttonText="Proceed to checkout"
+                  class="w-65"
+                />
               </div>
             </div>
           </div>

@@ -1,7 +1,7 @@
 <script>
 import CustomButton from '@/components/CustomButton.vue'
-import FormField from '@/components/FormField.vue'
 import toast, { Toaster } from 'vue3-hot-toast'
+import AuthFormField from '@/components/AuthFormField.vue'
 
 export default {
   name: 'SignUp',
@@ -48,7 +48,7 @@ export default {
     },
   },
 
-  components: { FormField, CustomButton, Toaster },
+  components: { AuthFormField, CustomButton, Toaster },
 }
 </script>
 <template>
@@ -57,9 +57,9 @@ export default {
     <p class="">Enter your details below</p>
 
     <form class="mt-12" @submit.prevent="handleSubmit">
-      <FormField class="mb-10" label="Name" inputType="text" v-model="localForm.name" />
-      <FormField class="mb-10" label="Email" inputType="email" v-model="localForm.userEmail" />
-      <FormField label="Password" inputType="password" v-model="localForm.password" />
+      <AuthFormField class="mb-10" label="Name" inputType="text" v-model="localForm.name" />
+      <AuthFormField class="mb-10" label="Email" inputType="email" v-model="localForm.userEmail" />
+      <AuthFormField label="Password" inputType="password" v-model="localForm.password" />
 
       <CustomButton buttonText="Create Account" :bgRed="true" class="mt-10 w-full" />
 

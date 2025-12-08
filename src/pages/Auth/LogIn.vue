@@ -1,7 +1,7 @@
 <script>
 import CustomButton from '@/components/CustomButton.vue'
-import FormField from '@/components/FormField.vue'
 import toast, { Toaster } from 'vue3-hot-toast'
+import AuthFormField from '@/components/AuthFormField.vue'
 
 export default {
   name: 'LogIn',
@@ -29,7 +29,7 @@ export default {
         return
       }
 
-      const { userEmail, password } = MockedUser
+      const { userEmail, password, name } = MockedUser
 
       if (userEmail !== this.localForm.userEmail || password !== this.localForm.password) {
         return toast.error('Incorrect login details')
@@ -37,7 +37,7 @@ export default {
 
       if (userEmail === this.localForm.userEmail && password === this.localForm.password) {
         localStorage.setItem('user', JSON.stringify(MockedUser))
-        this.$store.dispatch('user/updateloggedInUser', this.localForm)
+        this.$store.dispatch('user/updateloggedInUser', { ...this.localForm, name })
         return this.$router.push('/')
       }
     },
@@ -51,7 +51,7 @@ export default {
       return this.$store.getters['user/getMockedUser']
     },
   },
-  components: { FormField, CustomButton, Toaster },
+  components: { AuthFormField, CustomButton, Toaster },
 }
 </script>
 <template>
@@ -60,13 +60,13 @@ export default {
     <p class="">Enter your details below</p>
 
     <form class="mt-12" @submit.prevent="handleSubmit">
-      <FormField
+      <AuthFormField
         class="mb-10"
         label="Email or Phone Number"
         inputType="text"
         v-model="localForm.userEmail"
       />
-      <FormField label="Password" inputType="password" v-model="localForm.password" />
+      <AuthFormField label="Password" inputType="password" v-model="localForm.password" />
 
       <div class="mt-10 flex items-center justify-between gap-3">
         <CustomButton buttonText="Log In" :bgRed="true" class="w-35.5" />

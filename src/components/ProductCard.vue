@@ -95,7 +95,7 @@ export default {
       <button
         @click="$emit('addToCart')"
         :class="[
-          'bg-primary hover:bg-primary/50 absolute bottom-0 left-0 flex w-full cursor-pointer items-center justify-center gap-2 rounded-b py-2 text-center font-medium text-white transition-all duration-300',
+          'bg-primary hover:bg-green absolute bottom-0 left-0 flex w-full cursor-pointer items-center justify-center gap-2 rounded-b py-2 text-center font-medium text-white transition-all duration-300',
           wishlistView ? 'opacity-100' : 'opacity-0 group-hover:opacity-100',
         ]"
       >

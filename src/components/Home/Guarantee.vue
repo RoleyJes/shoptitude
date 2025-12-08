@@ -1,50 +1,68 @@
 <script>
-import CustomerServiceIcon from '@/assets/home/CustomerServiceIcon.vue'
-import DeliveryIcon from '@/assets/home/DeliveryIcon.vue'
-import ShieldTickIcon from '@/assets/home/ShieldTickIcon.vue'
-
 export default {
   name: 'Guarantee',
 
-  data() {
-    return {
-      guaranteeData: [
-        {
-          icon: 'DeliveryIcon',
-          header: 'FREE AND FAST DELIVERY',
-          description: 'Free delivery for all orders over $140',
-        },
-
-        {
-          icon: 'CustomerServiceIcon',
-          header: '24/7 CUSTOMER SERVICE',
-          description: 'Friendly 24/7 customer support',
-        },
-        {
-          icon: 'ShieldTickIcon',
-          header: 'MONEY BACK GUARANTEE',
-          description: 'We reurn money within 30 days',
-        },
-      ],
-    }
+  props: {
+    dataArr: {
+      type: Array,
+      required: true,
+    },
+    boldFont: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
+    border: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
   },
-
-  components: { DeliveryIcon, CustomerServiceIcon, ShieldTickIcon },
 }
 </script>
 <template>
-  <section class="mx-auto mb-35 flex max-w-236 items-center justify-between">
-    <div v-for="(item, i) in guaranteeData" :key="i" class="flex flex-col items-center">
-      <!-- Icon -->
-      <div class="flex size-20 items-center justify-center rounded-full bg-[#2F2E30]/30">
-        <div class="bg-primary flex size-14.5 items-center justify-center rounded-full">
-          <component :is="item.icon"></component>
+  <section
+    :class="[
+      'mx-auto mb-35 flex items-center justify-between',
+      border ? 'max-w-project_container gap-7.5' : 'max-w-236',
+    ]"
+  >
+    <div
+      v-for="(item, i) in dataArr"
+      :key="i"
+      :class="[
+        'group flex items-center justify-center transition-all duration-300',
+        border
+          ? 'border-primary/30 hover:bg-red hover:shadow-box h-57.5 w-67.5 rounded border hover:border-none hover:text-white'
+          : '',
+      ]"
+    >
+      <div class="flex flex-col items-center">
+        <div class="flex size-20 items-center justify-center rounded-full bg-[#2F2E30]/30">
+          <div
+            :class="[
+              'bg-primary flex size-14.5 items-center justify-center rounded-full text-white',
+              border ? 'group-hover:bg-white group-hover:text-black' : '',
+            ]"
+          >
+            <component :is="item.icon"></component>
+          </div>
         </div>
-      </div>
 
-      <!-- Texts -->
-      <p class="mt-6 mb-2 text-xl font-semibold">{{ item.header }}</p>
-      <p class="text-sm">{{ item.description }}</p>
+        <!-- Texts -->
+        <p
+          :class="[
+            'mt-6',
+            boldFont
+              ? 'inter mb-3 text-[32px] leading-[30px] font-bold tracking-[1.28px]'
+              : 'mb-2 text-xl font-semibold',
+          ]"
+        >
+          {{ item.header }}
+        </p>
+        <p :class="[boldFont ? 'text-base' : 'text-sm']">{{ item.description }}</p>
+      </div>
+      <!-- Icon -->
     </div>
   </section>
 </template>

@@ -1,5 +1,5 @@
 <script>
-import authImage from '@/assets/auth/authcart.png'
+import authImage from '@/assets/auth/authcart.webp'
 export default {
   name: 'AuthLayout',
 

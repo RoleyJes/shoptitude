@@ -1,9 +1,11 @@
 import AuthLayout from '@/layouts/AuthLayout.vue'
 import GeneralLayout from '@/layouts/GeneralLayout.vue'
 import About from '@/pages/About.vue'
+import Account from '@/pages/Account.vue'
 import LogIn from '@/pages/Auth/LogIn.vue'
 import SignUp from '@/pages/Auth/SignUp.vue'
 import Cart from '@/pages/Cart.vue'
+import CheckOut from '@/pages/CheckOut.vue'
 import Contact from '@/pages/Contact.vue'
 import Home from '@/pages/Home.vue'
 import ProductDetail from '@/pages/ProductDetail.vue'
@@ -42,6 +44,16 @@ const router = createRouter({
         {
           path: 'cart',
           component: Cart,
+          meta: { requiresAuth: true },
+        },
+        {
+          path: 'checkOut',
+          component: CheckOut,
+          meta: { requiresAuth: true },
+        },
+        {
+          path: 'account',
+          component: Account,
           meta: { requiresAuth: true },
         },
 

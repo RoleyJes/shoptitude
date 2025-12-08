@@ -5,6 +5,7 @@ export const userStore = {
     return {
       mockedUser: null,
       loggedInUser: null,
+      address: {},
     }
   },
 

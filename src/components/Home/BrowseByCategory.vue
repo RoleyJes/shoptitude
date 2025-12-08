@@ -41,7 +41,15 @@ export default {
     }
   },
 
-  components: { SectionHeaders, Phone, Computer, SmartWatch, Camera, HeadPhones, Gaming },
+  components: {
+    SectionHeaders,
+    Phone,
+    Computer,
+    SmartWatch,
+    Camera,
+    HeadPhones,
+    Gaming,
+  },
 }
 </script>
 <template>

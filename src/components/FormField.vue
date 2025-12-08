@@ -1,39 +1,13 @@
-<template>
-  <div class="relative w-full">
-    <input
-      :id="id"
-      v-model="inputValue"
-      :type="currentType"
-      @focus="isFocused = true"
-      @blur="isFocused = false"
-      class="border-b-outline/50 w-full border-b pe-6 outline-none"
-    />
-
-    <label
-      v-if="label"
-      :for="id"
-      class="pointer-events-none absolute left-0 text-black/50 transition-all duration-200"
-      :class="[isFocused || inputValue ? '-top-7' : '-top-2']"
-      >{{ label }}</label
-    >
-  </div>
-</template>
-
 <script>
 export default {
   name: 'FormField',
 
-  data() {
-    return {
-      currentType: this.inputType,
-      isFocused: false,
-      inputValue: this.modelValue,
-      // generalClass: 'border-b-outline/50 w-full outline pe-6 outline-none',
-    }
-  },
-
   props: {
     label: {
+      type: String,
+      required: false,
+    },
+    labelClass: {
       type: String,
       required: false,
     },
@@ -44,22 +18,43 @@ export default {
     inputType: {
       type: String,
       required: false,
-      default: 'text',
     },
-    modelValue: {
-      type: null,
-      default: '',
+    defaultValue: {
+      type: String,
+      required: false,
     },
-  },
-
-  methods: {},
-
-  watch: {
-    inputValue(value) {
-      this.$emit('update:modelValue', value)
+    placeholder: {
+      type: String,
+      required: false,
+    },
+    required: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    textareaRows: {
+      type: Number,
+      required: false,
     },
   },
 }
 </script>
+<template>
+  <div class="flex flex-col gap-2">
+    <label v-if="label" :for="id" :class="['text-primary', labelClass]">
+      <span>{{ label }}</span>
+      <span v-if="required" class="text-red/40">*</span>
+    </label>
+    <component
+      :is="inputType ? 'input' : 'textarea'"
+      :type="inputType"
+      :id="id"
+      :rows="textareaRows"
+      class="bg-gray focus:outline-green/30 placeholder:text-primary/50 rounded py-[13px] ps-4"
+      :defaultValue="defaultValue"
+      :placeholder="placeholder"
+    ></component>
+  </div>
+</template>
 
 <style lang="scss" scoped></style>
