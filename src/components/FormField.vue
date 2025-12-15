@@ -64,6 +64,7 @@ export default {
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
       :required="required"
+      :placeholder="placeholder"
     />
   </div>
 </template>
