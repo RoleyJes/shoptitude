@@ -56,19 +56,39 @@ export default {
     handleFormSubmit() {
       if (this.form.saveAddressInfo === true) {
         this.$store.dispatch('user/updateAddress', this.form)
-        toast.success('Address details saved successfully!')
+        // Don't remove the break, it adds a new line in the template literal
+        toast.success(`Address details saved successfully!
+        Thank you for shopping with us`)
+        this.$store.dispatch('cart/clearCart')
+        this.form = {
+          firstName: '',
+          companyName: '',
+          streetAddress: '',
+          appartment: '',
+          townOrCity: '',
+          phoneNumber: '',
+          email: '',
+          saveAddressInfo: null,
+        }
       } else {
         toast.success('Thank you for shopping with us!')
+        this.$store.dispatch('cart/clearCart')
+        this.form = {
+          firstName: '',
+          companyName: '',
+          streetAddress: '',
+          appartment: '',
+          townOrCity: '',
+          phoneNumber: '',
+          email: '',
+          saveAddressInfo: null,
+        }
       }
     },
   },
 
   computed: {
-    ...mapGetters('cart', ['getCart', 'getCartSubTotal']),
-    // ...mapGetters('user', ['getloggedInUser']),
-    // localStorageUser() {
-    //   return JSON.parse(localStorage.getItem('user'))
-    // },
+    ...mapGetters('cart', ['getCart', 'getCartSubTotal', 'getItemSubtotal']),
   },
 
   components: {
@@ -170,8 +190,11 @@ export default {
 
               <!-- Texts -->
               <div class="flex items-center justify-between gap-8">
-                <p>{{ product.title }}</p>
-                <p>{{ formatCurrency({ amount: product.price }) }}</p>
+                <p>
+                  <span>{{ product.title }} </span>
+                  <span class="text-green ms-1 text-xs">({{ product.quantity }})</span>
+                </p>
+                <p>{{ formatCurrency({ amount: getItemSubtotal(product.id) }) }}</p>
               </div>
             </div>
           </article>

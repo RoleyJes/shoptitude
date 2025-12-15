@@ -8,7 +8,6 @@ export default {
 
   methods: {
     deleteFromWishlist(id) {
-      console.log('clicked')
       this.$store.dispatch('wishlist/deleteProduct', id)
     },
     handleAddToCart(product) {

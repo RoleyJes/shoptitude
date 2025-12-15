@@ -31,24 +31,12 @@ export const cartStore = {
   },
 
   mutations: {
-    // addToCart(state, product) {
-    //   const existingItem = state.cart.find((item) => item.id === product.id)
-    //   if (existingItem) {
-    //     existingItem.quantity++
-    //     toast.success('Item added to cart')
-    //   } else {
-    //     state.cart.push({ ...product, quantity: 1 })
-    //     toast.success('Item added to cart')
-    //   }
-    // },
     addToCart(state, product) {
       state.cart.push({ ...product, quantity: 1 })
-      toast.success('Item added to cart')
     },
 
     deleteFromCart(state, productId) {
       state.cart = state.cart.filter((item) => item.id !== productId)
-      toast.success('Item removed from cart')
     },
 
     increaseQuantity(state, productId) {
@@ -58,41 +46,64 @@ export const cartStore = {
 
     decreaseQuantity(state, productId) {
       const item = state.cart.find((item) => item.id === productId)
-      if (item) {
-        item.quantity--
-        if (item.quantity <= 0) {
-          state.cart = state.cart.filter((i) => i.id !== productId)
-          toast.success('Item removed from cart')
-        }
-      }
+      if (item) item.quantity--
+    },
+
+    clearCart(state) {
+      state.cart = []
     },
   },
 
   actions: {
-    addToCart({ state, commit }, product) {
-      const existingItem = state.cart.find((item) => item.id === product.id)
+    addToCart({ getters, commit }, product) {
+      const existingItem = getters.getCartItemById(product.id)
       if (existingItem) {
         commit('increaseQuantity', product.id)
-        toast.success('Item added to cart')
       } else {
         commit('addToCart', product)
       }
+      toast.success('Item added to cart')
     },
 
-    addMultipleToCart({ dispatch }, products) {
+    addMultipleToCart({ getters, commit }, products) {
       products.forEach((product) => {
-        dispatch('addToCart', product)
+        const existingItem = getters.getCartItemById(product.id)
+        if (existingItem) {
+          commit('increaseQuantity', product.id)
+        } else {
+          commit('addToCart', product)
+        }
       })
+
+      toast.success(
+        products.length === 1 ? 'Item added to cart' : `${products.length} items added to cart`,
+      )
+    },
+
+    clearCart({ commit }) {
+      commit('clearCart')
     },
 
     deleteFromCart({ commit }, productId) {
       commit('deleteFromCart', productId)
+      toast.success('Item removed from cart')
     },
+
     increaseQuantity({ commit }, productId) {
       commit('increaseQuantity', productId)
     },
-    decreaseQuantity({ commit }, productId) {
-      commit('decreaseQuantity', productId)
+
+    decreaseQuantity({ getters, commit }, productId) {
+      const item = getters.getCartItemById(productId)
+
+      if (!item) return
+
+      if (item?.quantity > 1) {
+        commit('decreaseQuantity', productId)
+      } else {
+        commit('deleteFromCart', productId)
+        toast.success('Item removed from cart')
+      }
     },
   },
 }

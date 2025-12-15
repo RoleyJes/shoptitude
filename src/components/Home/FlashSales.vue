@@ -16,6 +16,7 @@ export default {
     addToWishlist(product) {
       this.$store.dispatch('wishlist/updateWishlist', product)
     },
+    countdown() {},
   },
 
   created() {
@@ -130,13 +131,7 @@ export default {
     </div>
   </section>
 
-  <Toaster
-    :toast-options="{
-      success: {
-        duration: 5000,
-      },
-    }"
-  />
+  <Toaster />
 </template>
 
 <style lang="scss" scoped></style>
