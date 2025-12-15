@@ -44,7 +44,7 @@ export default {
 
             <p class="flex items-center gap-2 font-medium">
               <span>Shop Now</span>
-              <img src="@/assets/arrowRightICon.png" alt="arrow right icon" />
+              <img src="@/assets/arrowRightIcon.png" alt="arrow right icon" />
             </p>
           </div>
 
