@@ -4,7 +4,7 @@ export default {
 }
 </script>
 <template>
-  <section class="mx-auto ms-auto mb-35 flex max-w-400 items-center gap-18.5">
+  <section class="mx-auto mb-35 flex max-w-400 items-center gap-18.5">
     <!-- Texts -->
     <div class="ms-[215px] basis-[32.81rem]">
       <h2 class="mb-10 text-[54px] leading-16 font-semibold tracking-[3.24px]">Our Story</h2>

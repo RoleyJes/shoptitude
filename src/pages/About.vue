@@ -10,13 +10,14 @@ import OurStory from '@/components/About/OurStory.vue'
 import Team from '@/components/About/Team.vue'
 import Breadcrumbs from '@/components/Breadcrumbs.vue'
 import Guarantee from '@/components/Home/Guarantee.vue'
+import { markRaw } from 'vue'
 
 export default {
   name: 'About',
 
   data() {
     return {
-      breadcrumbs: [
+      breadcrumbsArr: [
         {
           path: '/',
           label: 'Home',
@@ -28,41 +29,41 @@ export default {
 
       detailsSummary: [
         {
-          icon: SellersIcon,
+          icon: markRaw(SellersIcon),
           header: '10.5k',
           description: 'Sellers active our site',
         },
 
         {
-          icon: DollarIcon,
+          icon: markRaw(DollarIcon),
           header: '33k',
           description: 'Monthly Product Sale',
         },
         {
-          icon: ShoppingBagIcon,
+          icon: markRaw(ShoppingBagIcon),
           header: '45.5k',
           description: 'Customer active in our site',
         },
         {
-          icon: MoneyBagIcon,
+          icon: markRaw(MoneyBagIcon),
           header: '25k',
           description: 'Anual gross sale in our site',
         },
       ],
       guaranteeData: [
         {
-          icon: DeliveryIcon,
+          icon: markRaw(DeliveryIcon),
           header: 'FREE AND FAST DELIVERY',
           description: 'Free delivery for all orders over $140',
         },
 
         {
-          icon: CustomerServiceIcon,
+          icon: markRaw(CustomerServiceIcon),
           header: '24/7 CUSTOMER SERVICE',
           description: 'Friendly 24/7 customer support',
         },
         {
-          icon: ShieldTickIcon,
+          icon: markRaw(ShieldTickIcon),
           header: 'MONEY BACK GUARANTEE',
           description: 'We reurn money within 30 days',
         },
@@ -74,13 +75,6 @@ export default {
     Breadcrumbs,
     OurStory,
     Guarantee,
-    SellersIcon,
-    MoneyBagIcon,
-    ShoppingBagIcon,
-    DollarIcon,
-    DeliveryIcon,
-    CustomerServiceIcon,
-    ShieldTickIcon,
     Team,
   },
 }
@@ -88,7 +82,7 @@ export default {
 <template>
   <section class="max-w-project_container mx-auto mt-20 mb-10.5">
     <!-- Breadcrumbs -->
-    <Breadcrumbs :breadcrumbs="breadcrumbs" />
+    <Breadcrumbs :breadcrumbs="breadcrumbsArr" />
   </section>
   <OurStory />
   <Guarantee :dataArr="detailsSummary" :boldFont="true" :border="true" />

@@ -60,6 +60,7 @@ export default {
         :key="product.id"
         :calculatedDiscount="calcDiscount(product.price, 30)"
         @addToWishlist="addToWishlist(product)"
+        @addToCart="this.$store.dispatch('cart/addToCart', product)"
       />
     </section>
   </section>

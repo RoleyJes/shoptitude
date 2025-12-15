@@ -28,7 +28,6 @@ export default {
       currentType: this.inputType,
       isFocused: false,
       inputValue: this.modelValue,
-      // generalClass: 'border-b-outline/50 w-full outline pe-6 outline-none',
     }
   },
 
@@ -51,8 +50,6 @@ export default {
       default: '',
     },
   },
-
-  methods: {},
 
   watch: {
     inputValue(value) {

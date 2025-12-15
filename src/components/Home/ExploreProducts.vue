@@ -47,12 +47,13 @@ export default {
     <FetchError v-else-if="getError" :errMsg="getError" />
 
     <!-- Product card -->
-    <section class="grid grid-cols-4 gap-7.5">
+    <section v-else class="grid grid-cols-4 gap-7.5">
       <ProductCard
         v-for="product in slicedProducts"
         :product="product"
         :key="product.id"
         @addToWishlist="addToWishlist(product)"
+        @addToCart="this.$store.dispatch('cart/addToCart', product)"
       />
     </section>
 

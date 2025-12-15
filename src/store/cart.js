@@ -15,45 +15,76 @@ export const cartStore = {
     getCart(state) {
       return state.cart
     },
+
+    getCartItemById: (state) => (id) => {
+      return state.cart.find((p) => p.id === id) || null
+    },
+
     getItemSubtotal: (state) => (productId) => {
       const item = state.cart.find((item) => item.id === productId)
       return item ? item.price * item.quantity : 0
     },
+
     getCartSubTotal(state) {
-      const total = state.cart.reduce((acc, curItem) => acc + curItem.price * curItem.quantity, 0)
-      return total
+      return state.cart.reduce((acc, curItem) => acc + curItem.price * curItem.quantity, 0)
     },
   },
 
   mutations: {
+    // addToCart(state, product) {
+    //   const existingItem = state.cart.find((item) => item.id === product.id)
+    //   if (existingItem) {
+    //     existingItem.quantity++
+    //     toast.success('Item added to cart')
+    //   } else {
+    //     state.cart.push({ ...product, quantity: 1 })
+    //     toast.success('Item added to cart')
+    //   }
+    // },
     addToCart(state, product) {
-      const existingItem = state.cart.find((item) => item.id === product.id)
-      if (existingItem) {
-        existingItem.quantity++
-        toast.success('Item added to cart')
-      } else {
-        state.cart.push({ ...product, quantity: 1 })
-        toast.success('Item added to cart')
-      }
+      state.cart.push({ ...product, quantity: 1 })
+      toast.success('Item added to cart')
     },
+
     deleteFromCart(state, productId) {
       state.cart = state.cart.filter((item) => item.id !== productId)
       toast.success('Item removed from cart')
     },
+
     increaseQuantity(state, productId) {
-      state.cart.find((item) => item.id === productId).quantity++
+      const item = state.cart.find((item) => item.id === productId)
+      if (item) item.quantity++
     },
+
     decreaseQuantity(state, productId) {
-      // const existingItem = state.cart.find((item) => item.id === productId)
-      // if (existingItem?.quantity <= 1) this.$store.dispatch('cart/deleteFromCart')
-      state.cart.find((item) => item.id === productId).quantity--
+      const item = state.cart.find((item) => item.id === productId)
+      if (item) {
+        item.quantity--
+        if (item.quantity <= 0) {
+          state.cart = state.cart.filter((i) => i.id !== productId)
+          toast.success('Item removed from cart')
+        }
+      }
     },
   },
 
   actions: {
-    addToCart({ commit }, product) {
-      commit('addToCart', product)
+    addToCart({ state, commit }, product) {
+      const existingItem = state.cart.find((item) => item.id === product.id)
+      if (existingItem) {
+        commit('increaseQuantity', product.id)
+        toast.success('Item added to cart')
+      } else {
+        commit('addToCart', product)
+      }
     },
+
+    addMultipleToCart({ dispatch }, products) {
+      products.forEach((product) => {
+        dispatch('addToCart', product)
+      })
+    },
+
     deleteFromCart({ commit }, productId) {
       commit('deleteFromCart', productId)
     },

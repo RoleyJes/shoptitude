@@ -29,7 +29,7 @@ export default {
         return
       }
 
-      const { userEmail, password, name } = MockedUser
+      const { userEmail, password, firstName, lastName } = MockedUser
 
       if (userEmail !== this.localForm.userEmail || password !== this.localForm.password) {
         return toast.error('Incorrect login details')
@@ -37,7 +37,7 @@ export default {
 
       if (userEmail === this.localForm.userEmail && password === this.localForm.password) {
         localStorage.setItem('user', JSON.stringify(MockedUser))
-        this.$store.dispatch('user/updateloggedInUser', { ...this.localForm, name })
+        this.$store.dispatch('user/updateloggedInUser', { ...this.localForm, firstName, lastName })
         return this.$router.push('/')
       }
     },

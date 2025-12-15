@@ -29,12 +29,8 @@ export default {
     deleteFromCart(id) {
       this.$store.dispatch('cart/deleteFromCart', id)
     },
-    decreaseQuantity({ quantity, id }) {
-      if (quantity <= 1) {
-        this.$store.dispatch('cart/deleteFromCart', id)
-      } else {
-        this.$store.dispatch('cart/decreaseQuantity', id)
-      }
+    decreaseQuantity({ id }) {
+      this.$store.dispatch('cart/decreaseQuantity', id)
     },
   },
 
@@ -77,6 +73,7 @@ export default {
             @decreaseQuantity="decreaseQuantity(product)"
           />
 
+          <!-- Return to shop button -->
           <div class="flex justify-between">
             <div>
               <CustomButton
@@ -121,7 +118,7 @@ export default {
   <Toaster
     :toast-options="{
       success: {
-        duration: 5000,
+        duration: 3000,
       },
     }"
   />

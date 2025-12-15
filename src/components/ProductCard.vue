@@ -77,11 +77,15 @@ export default {
           alt="Heart shaped wishlist icon button overlaid at the top-right of a product image, indicating add or remove from favorites; appears on a discounted product card; neutral inviting tone"
           :class="[wishlistedItem(product.id) ? 'bg-green!' : '']"
         />
-        <IconInRoundWhiteBg
+        <RouterLink
           v-if="showEyeIcon"
-          :image="eyeIcon"
-          alt="Eye icon button to view product details; appears on a discounted product card"
-        />
+          :to="{ name: 'product-details', params: { id: product.id } }"
+        >
+          <IconInRoundWhiteBg
+            :image="eyeIcon"
+            alt="Eye icon button to view product details; appears on a discounted product card"
+          />
+        </RouterLink>
         <IconInRoundWhiteBg
           v-if="showOtherIcon"
           @click="$emit('otherIconClicked')"

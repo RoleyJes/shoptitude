@@ -19,9 +19,8 @@ export default {
       type: String,
       required: false,
     },
-    defaultValue: {
-      type: String,
-      required: false,
+    modelValue: {
+      type: null,
     },
     placeholder: {
       type: String,
@@ -45,15 +44,27 @@ export default {
       <span>{{ label }}</span>
       <span v-if="required" class="text-red/40">*</span>
     </label>
+
+    <!-- WHEN I USE INPUT, IT DOESN'T DISPLAY THE DEFAULT VALUES FROM THE ADDRESS {}. WHY???? -->
+
+    <!-- <input
+      :type="inputType"
+      :id="id"
+      class="bg-gray focus:outline-green/30 placeholder:text-primary/50 rounded py-[13px] ps-4"
+      :defaultValue="defaultValue"
+      :placeholder="placeholder"
+      v-model="inputValue"
+    /> -->
     <component
       :is="inputType ? 'input' : 'textarea'"
       :type="inputType"
       :id="id"
       :rows="textareaRows"
       class="bg-gray focus:outline-green/30 placeholder:text-primary/50 rounded py-[13px] ps-4"
-      :defaultValue="defaultValue"
-      :placeholder="placeholder"
-    ></component>
+      :value="modelValue"
+      @input="$emit('update:modelValue', $event.target.value)"
+      :required="required"
+    />
   </div>
 </template>
 

@@ -1,4 +1,5 @@
 <script>
+import { Toaster } from 'vue3-hot-toast'
 import ProductCard from '../ProductCard.vue'
 import WishlistHeader from './WishlistHeader.vue'
 
@@ -10,6 +11,14 @@ export default {
       console.log('clicked')
       this.$store.dispatch('wishlist/deleteProduct', id)
     },
+    handleAddToCart(product) {
+      this.$store.dispatch('cart/addToCart', product)
+      this.$store.dispatch('wishlist/deleteProduct', product.id)
+    },
+    handleAddAllItemsInWishlistToCart() {
+      this.$store.dispatch('cart/addMultipleToCart', this.wishlist)
+      this.$store.dispatch('wishlist/clearWishlist')
+    },
   },
 
   computed: {
@@ -18,7 +27,7 @@ export default {
     },
   },
 
-  components: { WishlistHeader, ProductCard },
+  components: { WishlistHeader, ProductCard, Toaster },
 }
 </script>
 <template>
@@ -26,8 +35,9 @@ export default {
     <WishlistHeader
       v-if="wishlist.length >= 1"
       title="Wishlist"
-      buttonText="Move All To Bag"
+      buttonText="Move All To Cart"
       buttonClass="w-56"
+      @click="handleAddAllItemsInWishlistToCart"
     />
 
     <p v-if="wishlist.length < 1" class="flex flex-col gap-3 text-center text-xl">
@@ -46,6 +56,7 @@ export default {
         :showRating="false"
         :wishlistView="true"
         @otherIconClicked="deleteFromWishlist(product.id)"
+        @addToCart="handleAddToCart(product)"
       >
         <template #otherIcon>
           <img
@@ -57,6 +68,7 @@ export default {
       </ProductCard>
     </section>
   </section>
+  <Toaster />
 </template>
 
 <style lang="scss" scoped></style>

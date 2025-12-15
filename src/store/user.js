@@ -5,7 +5,7 @@ export const userStore = {
     return {
       mockedUser: null,
       loggedInUser: null,
-      address: {},
+      address: null,
     }
   },
 
@@ -15,6 +15,9 @@ export const userStore = {
     },
     getloggedInUser(state) {
       return state.loggedInUser
+    },
+    getAddress(state) {
+      return state.address
     },
   },
 
@@ -28,6 +31,9 @@ export const userStore = {
     logoutUser(state) {
       state.loggedInUser = null
     },
+    setAddress(state, payload) {
+      state.address = payload
+    },
   },
 
   actions: {
@@ -39,6 +45,9 @@ export const userStore = {
     },
     logoutUser({ commit }) {
       commit('updateloggedInUser')
+    },
+    updateAddress({ commit }, address) {
+      commit('setAddress', address)
     },
   },
 }

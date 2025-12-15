@@ -9,7 +9,8 @@ export default {
   data() {
     return {
       form: {
-        name: '',
+        firstName: '',
+        lastName: '',
         userEmail: '',
         password: '',
       },
@@ -19,10 +20,10 @@ export default {
 
   methods: {
     handleSubmit() {
-      if (!this.localForm.name || !this.localForm.userEmail || !this.localForm.password) {
+      if (!this.localForm.firstName || !this.localForm.userEmail || !this.localForm.password) {
         return toast.error('Please fill in the fields')
       }
-      if (this.localForm.name.length < 3) {
+      if (this.localForm.firstName.length < 3) {
         return toast.error('Name must be longer than 2 characters')
       }
 
@@ -57,7 +58,18 @@ export default {
     <p class="">Enter your details below</p>
 
     <form class="mt-12" @submit.prevent="handleSubmit">
-      <AuthFormField class="mb-10" label="Name" inputType="text" v-model="localForm.name" />
+      <AuthFormField
+        class="mb-10"
+        label="First Name"
+        inputType="text"
+        v-model="localForm.firstName"
+      />
+      <AuthFormField
+        class="mb-10"
+        label="Last Name"
+        inputType="text"
+        v-model="localForm.lastName"
+      />
       <AuthFormField class="mb-10" label="Email" inputType="email" v-model="localForm.userEmail" />
       <AuthFormField label="Password" inputType="password" v-model="localForm.password" />
 

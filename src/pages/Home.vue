@@ -10,6 +10,7 @@ import FlashSales from '@/components/Home/FlashSales.vue'
 import Guarantee from '@/components/Home/Guarantee.vue'
 import Hero from '@/components/Home/Hero.vue'
 import NewArrivals from '@/components/Home/NewArrivals.vue'
+import { markRaw } from 'vue'
 
 export default {
   name: 'Home',
@@ -18,18 +19,18 @@ export default {
     return {
       guaranteeData: [
         {
-          icon: DeliveryIcon,
+          icon: markRaw(DeliveryIcon),
           header: 'FREE AND FAST DELIVERY',
           description: 'Free delivery for all orders over $140',
         },
 
         {
-          icon: CustomerServiceIcon,
+          icon: markRaw(CustomerServiceIcon),
           header: '24/7 CUSTOMER SERVICE',
           description: 'Friendly 24/7 customer support',
         },
         {
-          icon: ShieldTickIcon,
+          icon: markRaw(ShieldTickIcon),
           header: 'MONEY BACK GUARANTEE',
           description: 'We reurn money within 30 days',
         },

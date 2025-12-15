@@ -13,25 +13,34 @@ export const productsStore = {
     getProducts(state) {
       return state.products
     },
+
+    getSingleProduct(state) {
+      return function (productId) {
+        const product = state.products.find((item) => item.id === productId)
+        return product ? product : null
+      }
+    },
+
     getLoading(state) {
       return state.loading
     },
+
     getError(state) {
       return state.error
     },
   },
 
   mutations: {
-    setProducts(state, payload) {
-      state.products = payload
-    },
-
     setLoading(state, payload) {
       state.loading = payload
     },
 
     setError(state, payload) {
       state.error = payload
+    },
+
+    setProducts(state, payload) {
+      state.products = payload
     },
   },
 

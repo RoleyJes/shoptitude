@@ -10,20 +10,19 @@ import bkash from '@/assets/checkout/bkash.webp'
 import visa from '@/assets/checkout/visa.webp'
 import masterCard from '@/assets/checkout/masterCard.webp'
 import image33 from '@/assets/checkout/image33.webp'
+import toast, { Toaster } from 'vue3-hot-toast'
 
 export default {
   name: 'CheckOut',
 
   data() {
+    const storedUser = JSON.parse(localStorage.getItem('user'))
+
     return {
       breadcrumbs: [
         {
           path: '/account',
           label: 'My Account',
-        },
-        {
-          path: '/product-detail',
-          label: 'Product',
         },
         {
           path: '/cart',
@@ -38,18 +37,49 @@ export default {
         { label: 'Bank', value: 'bank', image: [bkash, visa, masterCard, image33] },
         { label: 'Cash on Delivery', value: 'cash' },
       ],
+      form: {
+        firstName: this.$store.getters['user/getLoggedInUser']?.firstName || storedUser?.firstName,
+        companyName: '',
+        streetAddress: '',
+        appartment: '',
+        townOrCity: '',
+        phoneNumber: '',
+        email: this.$store.getters['user/getLoggedInUser']?.userEmail || storedUser?.userEmail,
+        saveAddressInfo: null,
+      },
     }
   },
 
   methods: {
     formatCurrency,
+
+    handleFormSubmit() {
+      if (this.form.saveAddressInfo === true) {
+        this.$store.dispatch('user/updateAddress', this.form)
+        toast.success('Address details saved successfully!')
+      } else {
+        toast.success('Thank you for shopping with us!')
+      }
+    },
   },
 
   computed: {
     ...mapGetters('cart', ['getCart', 'getCartSubTotal']),
+    // ...mapGetters('user', ['getloggedInUser']),
+    // localStorageUser() {
+    //   return JSON.parse(localStorage.getItem('user'))
+    // },
   },
 
-  components: { Breadcrumbs, FormField, CartBillSummary, RadioGroup, CustomButton },
+  components: {
+    Breadcrumbs,
+    FormField,
+    CartBillSummary,
+    RadioGroup,
+    CustomButton,
+
+    Toaster,
+  },
 }
 </script>
 <template>
@@ -59,21 +89,62 @@ export default {
 
     <h2 class="font-inter mt-20 mb-12 text-4xl font-medium">Billing Details</h2>
 
-    <form class="grid grid-cols-2 gap-43">
+    <form class="grid grid-cols-2 gap-43" @submit.prevent="handleFormSubmit">
       <!-- Billing details -->
       <section class="space-y-8">
-        <FormField :required="true" label="First Name" id="firstName" inputType="text" />
-        <FormField label="Company Name" id="companyName" inputType="text" />
-        <FormField :required="true" label="Street Address" id="streetAddress" inputType="text" />
-        <FormField label="Apartment, floor, etc. (optional)" id="appartment" inputType="text" />
-        <FormField :required="true" label="Town/City" id="town/city" inputType="text" />
-        <FormField :required="true" label="Phone Number" id="phoneNumber" inputType="text" />
-        <FormField :required="true" label="Email Address" id="email" inputType="email" />
+        <FormField
+          :required="true"
+          label="First Name"
+          id="firstName"
+          inputType="text"
+          v-model="form.firstName"
+        />
+        <FormField
+          label="Company Name"
+          id="companyName"
+          inputType="text"
+          v-model="form.companyName"
+        />
+        <FormField
+          :required="true"
+          label="Street Address"
+          id="streetAddress"
+          inputType="text"
+          v-model="form.streetAddress"
+        />
+        <FormField
+          label="Apartment, floor, etc. (optional)"
+          id="appartment"
+          inputType="text"
+          v-model="form.appartment"
+        />
+        <FormField
+          :required="true"
+          label="Town/City"
+          id="townOrCity"
+          inputType="text"
+          v-model="form.townOrCity"
+        />
+        <FormField
+          :required="true"
+          label="Phone Number"
+          id="phoneNumber"
+          inputType="text"
+          v-model="form.phoneNumber"
+        />
+        <FormField
+          :required="true"
+          label="Email Address"
+          id="email"
+          inputType="email"
+          v-model="form.email"
+        />
         <div class="flex items-center gap-4">
           <input
             type="checkbox"
             id="saveAddressInfo"
             class="accent-red size-6 cursor-pointer rounded"
+            v-model="form.saveAddressInfo"
           />
           <label for="saveAddressInfo" class="cursor-pointer"
             >Save this information for faster check-out next time</label
@@ -122,6 +193,8 @@ export default {
       </section>
     </form>
   </section>
+
+  <Toaster> </Toaster>
 </template>
 
 <style lang="scss" scoped></style>

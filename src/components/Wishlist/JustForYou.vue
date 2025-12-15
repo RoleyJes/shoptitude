@@ -11,17 +11,20 @@ export default {
     },
   },
 
+  props: {
+    title: {
+      type: String,
+      default: 'Just For You',
+      required: false,
+    },
+  },
+
   components: { WishlistHeader, ProductCard },
 }
 </script>
 <template>
   <section class="max-w-project_container mx-auto mt-32 mb-20">
-    <WishlistHeader
-      :redBorder="true"
-      title="Just For You"
-      buttonText="See All"
-      buttonClass="w-37.5"
-    />
+    <WishlistHeader :redBorder="true" :title="title" buttonText="See All" buttonClass="w-37.5" />
     <section class="grid grid-cols-4 gap-7.5">
       <ProductCard
         v-for="product in slicedProducts"
@@ -31,7 +34,7 @@ export default {
         :showEyeIcon="true"
         :showRating="true"
         :wishlistView="true"
-        @otherIconClicked="deleteFromWishlist(product.id)"
+        @addToCart="this.$store.dispatch('cart/addToCart', product)"
       >
       </ProductCard>
     </section>

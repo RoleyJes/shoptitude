@@ -1,7 +1,6 @@
 import AuthLayout from '@/layouts/AuthLayout.vue'
 import GeneralLayout from '@/layouts/GeneralLayout.vue'
 import About from '@/pages/About.vue'
-import Account from '@/pages/Account.vue'
 import LogIn from '@/pages/Auth/LogIn.vue'
 import SignUp from '@/pages/Auth/SignUp.vue'
 import Cart from '@/pages/Cart.vue'
@@ -11,6 +10,9 @@ import Home from '@/pages/Home.vue'
 import ProductDetail from '@/pages/ProductDetail.vue'
 import WishList from '@/pages/WishList.vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import Profile from '@/pages/Profile.vue'
+import AccountLayout from '@/layouts/AccountLayout.vue'
+import UserAddress from '@/pages/UserAddress.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,7 +35,8 @@ const router = createRouter({
           component: Contact,
         },
         {
-          path: 'product-detail',
+          path: 'products/:id',
+          name: 'product-details',
           component: ProductDetail,
         },
         {
@@ -53,8 +56,21 @@ const router = createRouter({
         },
         {
           path: 'account',
-          component: Account,
+          redirect: 'account/profile',
+          component: AccountLayout,
           meta: { requiresAuth: true },
+          children: [
+            {
+              path: 'profile',
+              name: 'profile',
+              component: Profile,
+            },
+            {
+              path: 'address',
+              name: 'address',
+              component: UserAddress,
+            },
+          ],
         },
 
         {

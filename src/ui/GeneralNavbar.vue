@@ -89,8 +89,8 @@ export default {
     usernameFirstLetter() {
       const user =
         this.$store.getters['user/getloggedInUser'] || JSON.parse(localStorage.getItem('user'))
-      if (user && user.name) {
-        return user.name.charAt(0).toUpperCase()
+      if (user && user.firstName) {
+        return user.firstName.charAt(0).toUpperCase()
       }
       return ''
     },
@@ -126,7 +126,7 @@ export default {
             <RouterLink
               :to="route.path"
               :class="[
-                'border-b transition-all duration-300',
+                'hover:border-b-primary/50 border-b transition-all duration-300',
                 isActiveRoute(route.path) ? 'border-b-primary/50' : 'border-b-transparent',
               ]"
             >

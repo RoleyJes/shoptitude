@@ -13,6 +13,9 @@ export const wishlistStore = {
     getWishlist(state) {
       return state.wishlist
     },
+    getWishlistItem: (state) => (id) => {
+      return state.wishlist.find((item) => item.id === id)
+    },
   },
 
   mutations: {
@@ -32,6 +35,10 @@ export const wishlistStore = {
     deleteProduct(state, productId) {
       state.wishlist = state.wishlist.filter((product) => product.id !== productId)
     },
+
+    clearWishlist(state) {
+      state.wishlist = []
+    },
   },
 
   actions: {
@@ -48,6 +55,10 @@ export const wishlistStore = {
     },
     deleteProduct({ commit }, productId) {
       commit('deleteProduct', productId)
+    },
+
+    clearWishlist({ commit }) {
+      commit('clearWishlist')
     },
   },
 }

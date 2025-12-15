@@ -1,3 +1,9 @@
+<script>
+export default {
+  name: 'DeliveryIcon',
+}
+</script>
+
 <template>
   <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g clip-path="url(#clip0_1221_272)">
@@ -58,11 +64,5 @@
     </defs>
   </svg>
 </template>
-
-<script>
-export default {
-  name: 'DeliveryIcon',
-}
-</script>
 
 <style lang="scss" scoped></style>
