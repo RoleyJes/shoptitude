@@ -11,7 +11,6 @@ export default {
         userEmail: '',
         password: '',
       },
-      localForm: { ...this.form },
     }
   },
 
@@ -19,7 +18,7 @@ export default {
     handleSubmit() {
       const MockedUser = this.getMockedUser
 
-      if (!MockedUser && this.localForm) {
+      if (!MockedUser && this.form) {
         toast.error('Account does not exist', {
           duration: 1500,
         })
@@ -31,13 +30,13 @@ export default {
 
       const { userEmail, password, firstName, lastName } = MockedUser
 
-      if (userEmail !== this.localForm.userEmail || password !== this.localForm.password) {
+      if (userEmail !== this.form.userEmail || password !== this.form.password) {
         return toast.error('Incorrect login details')
       }
 
-      if (userEmail === this.localForm.userEmail && password === this.localForm.password) {
+      if (userEmail === this.form.userEmail && password === this.form.password) {
         localStorage.setItem('user', JSON.stringify(MockedUser))
-        this.$store.dispatch('user/updateloggedInUser', { ...this.localForm, firstName, lastName })
+        this.$store.dispatch('user/updateloggedInUser', { ...this.form, firstName, lastName })
         return this.$router.push('/')
       }
     },
@@ -64,9 +63,9 @@ export default {
         class="mb-10"
         label="Email or Phone Number"
         inputType="text"
-        v-model="localForm.userEmail"
+        v-model="form.userEmail"
       />
-      <AuthFormField label="Password" inputType="password" v-model="localForm.password" />
+      <AuthFormField label="Password" inputType="password" v-model="form.password" />
 
       <div class="mt-10 flex items-center justify-between gap-3">
         <CustomButton buttonText="Log In" :bgRed="true" class="w-35.5" />

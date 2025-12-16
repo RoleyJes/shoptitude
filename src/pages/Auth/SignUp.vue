@@ -14,16 +14,15 @@ export default {
         userEmail: '',
         password: '',
       },
-      localForm: { ...this.form },
     }
   },
 
   methods: {
     handleSubmit() {
-      if (!this.localForm.firstName || !this.localForm.userEmail || !this.localForm.password) {
+      if (!this.form.firstName || !this.form.userEmail || !this.form.password) {
         return toast.error('Please fill in the fields')
       }
-      if (this.localForm.firstName.length < 3) {
+      if (this.form.firstName.length < 3) {
         return toast.error('Name must be longer than 2 characters')
       }
 
@@ -31,20 +30,19 @@ export default {
         JSON.parse(localStorage.getItem('user')) || this.$store.getters['user/getMockedUser']
 
       // Don't create new account if user already exist
-      if (
-        user?.userEmail === this.localForm.userEmail &&
-        user?.password === this.localForm.password
-      ) {
-        return toast.error('This email is already registered. Log in instead')
+      if (user?.userEmail === this.form.userEmail) {
+        return toast.error(`This email is already registered.
+        Log in instead`)
       }
 
       // create acct if user doesn't exist
-      if (!user) {
-        this.$store.dispatch('user/updateMockedUser', this.localForm)
-        toast.success('Account created successfully. You will be redirected to log in')
+      if (!user || user?.userEmail !== this.form.userEmail) {
+        this.$store.dispatch('user/updateMockedUser', this.form)
+        toast.success(`Account created successfully.
+        You will be redirected to log in`)
         setTimeout(() => {
           this.$router.push('/auth/login')
-        }, 2000)
+        }, 1500)
       }
     },
   },
@@ -58,20 +56,10 @@ export default {
     <p class="">Enter your details below</p>
 
     <form class="mt-12" @submit.prevent="handleSubmit">
-      <AuthFormField
-        class="mb-10"
-        label="First Name"
-        inputType="text"
-        v-model="localForm.firstName"
-      />
-      <AuthFormField
-        class="mb-10"
-        label="Last Name"
-        inputType="text"
-        v-model="localForm.lastName"
-      />
-      <AuthFormField class="mb-10" label="Email" inputType="email" v-model="localForm.userEmail" />
-      <AuthFormField label="Password" inputType="password" v-model="localForm.password" />
+      <AuthFormField class="mb-10" label="First Name" inputType="text" v-model="form.firstName" />
+      <AuthFormField class="mb-10" label="Last Name" inputType="text" v-model="form.lastName" />
+      <AuthFormField class="mb-10" label="Email" inputType="email" v-model="form.userEmail" />
+      <AuthFormField label="Password" inputType="password" v-model="form.password" />
 
       <CustomButton buttonText="Create Account" :bgRed="true" class="mt-10 w-full" />
 
@@ -87,15 +75,12 @@ export default {
   <Toaster
     :toast-options="{
       error: {
-        duration: 5000,
+        // duration: 5000,
         style: {
           backgroundColor: 'rgb(248, 229, 229)',
           color: 'hsla(0, 68%, 56%, 1)',
           textAlign: 'center',
         },
-      },
-      success: {
-        duration: 5000,
       },
     }"
   />

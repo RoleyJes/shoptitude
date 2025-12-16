@@ -7,6 +7,7 @@ import { calcDiscount } from '@/utils/calcDiscount'
 import { mapGetters } from 'vuex'
 import FetchError from '../FetchError.vue'
 import { Toaster } from 'vue3-hot-toast'
+import CountDown from './CountDown.vue'
 
 export default {
   name: 'FlashSales',
@@ -50,7 +51,15 @@ export default {
   //   }),
   // },
 
-  components: { SectionHeaders, SkeletonLoader, CustomButton, ProductCard, FetchError, Toaster },
+  components: {
+    SectionHeaders,
+    SkeletonLoader,
+    CustomButton,
+    ProductCard,
+    FetchError,
+    Toaster,
+    CountDown,
+  },
 }
 </script>
 
@@ -60,40 +69,7 @@ export default {
       <!-- Heading -->
       <section class="mb-10">
         <SectionHeaders subHeader="Today's" header="Flash Sales">
-          <div class="flex items-center gap-4.5">
-            <!-- Days -->
-            <div class="space-y-1">
-              <p class="text-xs font-medium">Days</p>
-              <p class="font-inter text-[32px] leading-[30px] font-bold">03</p>
-            </div>
-            <div class="flex flex-col gap-3">
-              <span class="bg-red size-1 rounded-full"></span>
-              <span class="bg-red size-1 rounded-full"></span>
-            </div>
-            <!-- Hours -->
-            <div class="space-y-1">
-              <p class="text-xs font-medium">Hours</p>
-              <p class="font-inter text-[32px] leading-[30px] font-bold">23</p>
-            </div>
-            <div class="flex flex-col gap-3">
-              <span class="bg-red size-1 rounded-full"></span>
-              <span class="bg-red size-1 rounded-full"></span>
-            </div>
-            <!-- Minutes -->
-            <div class="space-y-1">
-              <p class="text-xs font-medium">Minutes</p>
-              <p class="font-inter text-[32px] leading-[30px] font-bold">19</p>
-            </div>
-            <div class="flex flex-col gap-3">
-              <span class="bg-red size-1 rounded-full"></span>
-              <span class="bg-red size-1 rounded-full"></span>
-            </div>
-            <!-- Seconds -->
-            <div class="space-y-1">
-              <p class="text-xs font-medium">Seconds</p>
-              <p class="font-inter text-[32px] leading-[30px] font-bold">56</p>
-            </div>
-          </div>
+          <CountDown />
         </SectionHeaders>
       </section>
 

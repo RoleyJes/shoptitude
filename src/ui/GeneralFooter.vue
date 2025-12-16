@@ -9,7 +9,7 @@ export default {
           header: 'Support',
           links: [
             { label: '111 Bijoy sarani, Dhaka,  DH 1515, Bangladesh.' },
-            { label: 'exclusive@gmail.com' },
+            { label: 'shoptitude@gmail.com' },
             { label: '+88015-88888-9999' },
           ],
         },
@@ -17,7 +17,7 @@ export default {
           header: 'Support',
           route: true,
           links: [
-            { label: 'My Account', path: '/' },
+            { label: 'My Account', path: '/account' },
             { label: 'Login / Register', path: '/auth/login' },
             { label: 'Cart', path: '/cart' },
             { label: 'Wishlist', path: '/wishlist' },
