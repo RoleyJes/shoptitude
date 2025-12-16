@@ -94,6 +94,19 @@ const router = createRouter({
       ],
     },
   ],
+
+  scrollBehavior(to, from, savedPosition) {
+    // back/forward button
+    if (savedPosition) {
+      return savedPosition
+    }
+
+    // default: scroll to top
+    return {
+      top: 0,
+      behavior: 'smooth',
+    }
+  },
 })
 
 router.beforeEach((to) => {
